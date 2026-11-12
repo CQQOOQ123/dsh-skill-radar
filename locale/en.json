@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Skill Pilot",
+    "description": "Retrieves the right skills before and during a task, and manages skill/plugin switches, priority, and usage stats in one place."
+  }
+}

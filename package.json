@@ -1,0 +1,48 @@
+{
+  "name": "dsh-skill-radar",
+  "version": "0.1.0",
+  "private": false,
+  "type": "module",
+  "description": "A lightweight automatic skill radar and switchboard for DeepSeek Harness: scout, manage, acquire and install skills.",
+  "license": "MIT",
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "plugin",
+    "skills",
+    "skill-radar",
+    "agent"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "icon.svg"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-settings"
+      ]
+    }
+  },
+  "scripts": {
+    "test": "node lite-test.mjs",
+    "ci": "node ci.mjs"
+  }
+}

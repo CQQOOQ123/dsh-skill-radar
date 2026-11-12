@@ -1,0 +1,7 @@
+- insert:
+    - id: skill-pilot-lite
+      name: 'dsh-skill-radar'
+      config:
+        catalogFilter: true
+        bodyAware: true
+        radar: false

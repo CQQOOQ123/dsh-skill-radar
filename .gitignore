@@ -1,0 +1,12 @@
+node_modules/
+ui-tests/node_modules/
+ui-tests/artifacts/
+*.bak.js
+*.log
+state.json
+state-backups/
+secrets.key
+secrets.enc
+web-token
+*.tmp
+.DS_Store
