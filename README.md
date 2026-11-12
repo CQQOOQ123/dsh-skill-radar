@@ -2,6 +2,8 @@
 
 > **轻量自动化技能雷达。** 自动找出该用哪个技能，强匹配才加载，缺能力时在线找、预检、安装、可回滚。
 
+[English](README.en.md) | 中文
+
 [![CI](https://github.com/CQQOOQ123/dsh-skill-radar/actions/workflows/ci.yml/badge.svg)](https://github.com/CQQOOQ123/dsh-skill-radar/actions/workflows/ci.yml)
 [![Release](https://img.shields.io/github/v/release/CQQOOQ123/dsh-skill-radar?include_prereleases)](https://github.com/CQQOOQ123/dsh-skill-radar/releases)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
