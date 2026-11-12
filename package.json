@@ -46,5 +46,13 @@
   "scripts": {
     "test": "node lite-test.mjs",
     "ci": "node ci.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CQQOOQ123/dsh-skill-radar.git"
+  },
+  "homepage": "https://github.com/CQQOOQ123/dsh-skill-radar#readme",
+  "bugs": {
+    "url": "https://github.com/CQQOOQ123/dsh-skill-radar/issues"
   }
 }
