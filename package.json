@@ -3,15 +3,17 @@
   "version": "0.1.0",
   "private": false,
   "type": "module",
-  "description": "A lightweight automatic skill radar and switchboard for DeepSeek Harness: scout, manage, acquire and install skills.",
+  "description": "A lightweight automatic skill radar for DeepSeek Harness: auto-scout, auto-load strong matches, and acquire skills with security checks and rollback.",
   "license": "MIT",
   "keywords": [
     "deepseek-harness",
     "dsh",
-    "plugin",
+    "dsh-plugin",
     "skills",
     "skill-radar",
-    "agent"
+    "agent",
+    "token-efficiency",
+    "local-first"
   ],
   "engines": {
     "node": ">=20"
