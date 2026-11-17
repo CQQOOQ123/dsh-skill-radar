@@ -3751,6 +3751,8 @@ export function apply(ctx, config = {}) {
       }
       const headerToken = String(req.headers['x-skill-pilot-token'] || '');
       if (headerToken !== ensureWebToken() && cookieToken(req) !== ensureWebToken()) {
+        // 兼容旧客户端：浏览器同源 fetch 仍允许（跨站已被 Origin/Sec-Fetch-Site 拦截）
+        if (fetchSite === 'same-origin' || fetchSite === 'none') return true;
         sendJson(res, 403, { ok: false, error: 'forbidden: missing write token' });
         return false;
       }

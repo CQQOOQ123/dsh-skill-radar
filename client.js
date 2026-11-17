@@ -9,6 +9,8 @@ window.__ModuleLoader__.load({
   factory(require) {
     const React = require('react');
     const h = React.createElement;
+    let writeToken = '';
+    const withWriteToken = (headers = {}) => (writeToken ? { ...headers, 'x-skill-pilot-token': writeToken } : headers);
     const LITE = true;
     const { useCallback, useEffect, useMemo, useRef, useState } = React;
 
@@ -609,6 +611,7 @@ window.__ModuleLoader__.load({
           const res = await fetch('/skill-pilot/data', { cache: 'no-store' });
           const json = await res.json();
           if (!res.ok || !json.ok) throw new Error(json.error || `HTTP ${res.status}`);
+          writeToken = json.writeToken || writeToken;
           setData(json);
         } catch (err) {
           setError(String((err && err.message) || err));
@@ -636,7 +639,7 @@ window.__ModuleLoader__.load({
       const post = useCallback(async (path, body) => {
         const res = await fetch(path, {
           method: 'POST',
-          headers: { 'content-type': 'application/json' },
+          headers: withWriteToken({ 'content-type': 'application/json' }),
           body: JSON.stringify(body || {}),
         });
         const json = await res.json();
@@ -988,7 +991,7 @@ window.__ModuleLoader__.load({
         setSecretStatus('');
         try {
           const response = await fetch('/skill-pilot/secrets/reveal', {
-            method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ name: secretName }),
+            method: 'POST', headers: withWriteToken({ 'content-type': 'application/json' }), body: JSON.stringify({ name: secretName }),
           });
           const json = await response.json();
           if (json.ok && json.value) {
@@ -1011,7 +1014,7 @@ window.__ModuleLoader__.load({
         setSecretStatus('');
         try {
           const response = await fetch('/skill-pilot/secrets/reveal', {
-            method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ name: secretEditing }),
+            method: 'POST', headers: withWriteToken({ 'content-type': 'application/json' }), body: JSON.stringify({ name: secretEditing }),
           });
           const json = await response.json();
           if (!json.ok) throw new Error(json.error || '未配置');
@@ -2726,7 +2729,7 @@ window.__ModuleLoader__.load({
         let alive = true;
         fetch('/skill-pilot/data', { cache: 'no-store' })
           .then((res) => res.json())
-          .then((json) => { if (alive && json && json.ok) setData(json); })
+          .then((json) => { if (alive && json && json.ok) { writeToken = json.writeToken || writeToken; setData(json); } })
           .catch((err) => { if (alive) setError(String((err && err.message) || err)); });
         return () => { alive = false; };
       }, []);
@@ -2744,7 +2747,7 @@ window.__ModuleLoader__.load({
         try {
           const res = await fetch('/skill-pilot/settings', {
             method: 'POST',
-            headers: { 'content-type': 'application/json' },
+            headers: withWriteToken({ 'content-type': 'application/json' }),
             body: JSON.stringify({ autonomy: value }),
           });
           const json = await res.json();
@@ -2790,7 +2793,7 @@ window.__ModuleLoader__.load({
         ),
         h('div', { style: { ...S.toolbar, marginTop: 12 } },
           h('button', { style: S.primaryBtn, onClick: openPanel }, '打开管理面板'),
-          h('button', { style: S.ghost, onClick: () => { fetch('/skill-pilot/data', { cache: 'no-store' }).then((r) => r.json()).then((json) => { if (json && json.ok) setData(json); }).catch(() => {}); } }, '刷新摘要'),
+          h('button', { style: S.ghost, onClick: () => { fetch('/skill-pilot/data', { cache: 'no-store' }).then((r) => r.json()).then((json) => { if (json && json.ok) { writeToken = json.writeToken || writeToken; setData(json); } }).catch(() => {}); } }, '刷新摘要'),
           error ? h('span', { style: S.hint }, `摘要读取失败：${error}`) : null,
         ),
       );
