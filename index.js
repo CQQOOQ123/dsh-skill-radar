@@ -1509,11 +1509,12 @@ export function apply(ctx, config = {}) {
 
   // ---- 技能级在线索引（把 GitHub 仓库索引成 SKILL.md 条目）----------------
   async function githubJson(url, signal) {
+    const token = process.env.GITHUB_TOKEN || getSecret('github');
     const response = await fetch(url, {
       headers: {
         'user-agent': 'skill-pilot/1.0',
         accept: 'application/vnd.github+json',
-        ...(process.env.GITHUB_TOKEN ? { authorization: `Bearer ${process.env.GITHUB_TOKEN}` } : {}),
+        ...(token ? { authorization: `Bearer ${token}` } : {}),
       },
       signal: signal || AbortSignal.timeout(20000),
     });
@@ -1523,8 +1524,9 @@ export function apply(ctx, config = {}) {
 
   async function githubRaw(repo, branch, filePath, signal) {
     const encoded = encodeURI(filePath).replace(/%2F/gi, '/');
+    const token = process.env.GITHUB_TOKEN || getSecret('github');
     const response = await fetch(`https://raw.githubusercontent.com/${repo}/${branch}/${encoded}`, {
-      headers: { 'user-agent': 'skill-pilot/1.0' },
+      headers: { 'user-agent': 'skill-pilot/1.0', ...(token ? { authorization: `Bearer ${token}` } : {}) },
       signal: signal || AbortSignal.timeout(20000),
     });
     if (!response.ok) throw new Error(`raw HTTP ${response.status}`);

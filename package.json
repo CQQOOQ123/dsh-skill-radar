@@ -1,6 +1,6 @@
 {
   "name": "dsh-skill-radar",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": false,
   "type": "module",
   "description": "A lightweight automatic skill radar for DeepSeek Harness: auto-scout, auto-load strong matches, and acquire skills with security checks and rollback.",

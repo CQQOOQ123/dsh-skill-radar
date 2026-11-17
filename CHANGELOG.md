@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.2 — 2026-11-17
+
+- 修复自动获取时的 GitHub 403：`githubJson` / `githubRaw` 现在会使用设置里保存的 GitHub Token，而不只依赖环境变量。
+- 影响：在线搜索、技能安全预检、自动获取、注册表等 GitHub 请求。
+
 ## 0.1.1 — 2026-11-17
 
 - 修复设置页保存 Token / API Key 时被写接口鉴权拦截的问题：客户端在读取 `/data` 后自动携带 `x-skill-pilot-token`。
